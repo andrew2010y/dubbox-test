@@ -1,0 +1,39 @@
+root     18715 18135  0 22:27 pts/2    00:00:00 ps -ef
+[root@localhost ~]# kill -9 18202
+[root@localhost ~]# kill -9 18707
+[root@localhost ~]# /opt/FastDFS/tracker/fdfs_trackerd /etc/fdfs/tracker.conf
+[root@localhost ~]# /opt/FastDFS/tracker/fdfs_trackerd /etc/fdfs/storage.conf
+[root@localhost ~]# fdfs_monitor
+Usage: fdfs_monitor <config_file> [-h <tracker_server>] [list|delete|set_trunk_server <group_name> [storage_id]]
+[root@localhost ~]# /opt/FastDFS/restart.sh /opt/FastDFS/tracker/fdfs_trackerd /etc/fdfs/tracker.conf
+stopping fdfs_trackerd ...
+.
+starting fdfs_trackerd ...
+[root@localhost ~]# /opt/FastDFS/restart.sh /opt/FastDFS/storage/fdfs_storaged /etc/fdfs/storage.conf
+
+/opt/FastDFS/client/fdfs_monitor /etc/fdfs/storage.conf
+
+netstat -antpu |grep fdfs
+netstat -ntlp   //查看当前所有tcp端口·
+netstat -ntulp |grep 80   //查看所有80端口使用情况·
+netstat -an | grep 3306   //查看所有3306端口使用情况·
+
+ /opt/FastDFS/client/fdfs_test /etc/fdfs/client.conf upload QQ.jpg
+
+/opt/FastDFS/client/fdfs_test /etc/fdfs/client.conf download group1/M00/00/00/wKhY8FgAi02ATwuxAADewOudJHI998.jpg
+
+防火墙中打开跟踪器Tracker端口
+# iptables -I INPUT -p tcp --dport 22122 -j ACCEPT
+保存防火墙规则
+# /etc/init.d/iptables save
+关闭tracker
+# /etc/init.d/fdfs_trackerd stop
+
+3)查看防火墙状态
+chkconfig iptables --list
+
+ln -s /usr/bin/fdfs_storaged /usr/local/bin
+
+http://192.168.88.240/group1/M00/00/00/wKhY8FgAmAyAdV0GAADewOudJHI768.jpg
+
+ /usr/local/nginx/sbin/nginx -s reload
