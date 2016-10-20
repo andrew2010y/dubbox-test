@@ -1,0 +1,16 @@
+mstsc
+
+update user set password=passworD("gao2fu2016!") where user='root';
+
+mysql --help|grep my.cnf 
+
+update user set password=passworD("RayXun2016!*") where user='RayXun';
+
+ show variables like '%log%';
+
+set global general_log = ON;
+
+
+查看general_log：
+tail -f /var/run/mysqld/mysqld.log |grep max_allowed_packet （查看log，但打印大量实时sql操作）
+tail -f /var/run/mysqld/mysqld.log |grep max_allowed_packet >1.txt （过滤max_allowed_packet，并输出到文件1.txt)
