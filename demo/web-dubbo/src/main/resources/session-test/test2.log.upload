@@ -1,0 +1,95 @@
+defg32153542134321432145r321532016-10-25 09:46:44,344 [http-bio-8080-exec-2] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Invoking afterPropertiesSet() on bean with name 'redirect:/user/list'
+2016-10-25 09:46:44,345 [http-bio-8080-exec-2] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.RedirectView: name 'redirect:/user/list'; URL [/user/list]] in DispatcherServlet with name 'springmvc'
+2016-10-25 09:46:44,348 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,366 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,367 [http-bio-8080-exec-2] DEBUG 2016-10-25 09:46:44,344 [http-bio-8080-exec-2] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Invoking afterPropertiesSet() on bean with name 'redirect:/user/list'
+2016-10-25 09:46:44,345 [http-bio-8080-exec-2] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.RedirectView: name 'redirect:/user/list'; URL [/user/list]] in DispatcherServlet with name 'springmvc'
+2016-10-25 09:46:44,348 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,366 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,367 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,368 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,368 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,369 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,369 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,370 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,372 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,372 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,373 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,373 [http-bio-8080-exec-2] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
+2016-10-25 09:46:44,388 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,389 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - DispatcherServlet with name 'springmvc' processing GET request for [/web-test-dubbo/user/list]
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Looking up handler method for path /user/list
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Returning handler method [public java.lang.String com.nova.app.controller.UserController.list(org.springframework.ui.Model)]
+2016-10-25 09:46:44,392 [http-bio-8080-exec-8] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Returning cached instance of singleton bean 'userController'
+2016-10-25 09:46:44,393 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/web-test-dubbo/user/list] is: -1
+2016-10-25 09:46:44,528 [DubboClientHandler-192.168.10.180:20880-thread-1] DEBUG [com.alibaba.dubbo.remoting.transport.DecodeHandler] -  [DUBBO] Decode decodeable message com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcResult, dubbo version: 2.8.4, current host: 192.168.10.180
+2016-10-25 09:46:44,530 [http-bio-8080-exec-8] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Invoking afterPropertiesSet() on bean with name 'user/list'
+2016-10-25 09:46:44,530 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'user/list'; URL [/WEB-INF/view/user/list.jsp]] in DispatcherServlet with name 'springmvc'
+2016-10-25 09:46:44,531 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.view.JstlView] - Added model object 'users' of type [java.util.ArrayList] to request in view with name 'user/list'
+2016-10-25 09:46:44,531 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/view/user/list.jsp] in InternalResourceView 'user/list'
+2016-10-25 09:46:44,627 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,628 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,628 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,629 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,629 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,632 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
+2016-10-25 09:47:00,002 [pool-2-thread-1] DEBUG [org.springframework.session.data.redis.RedisSessionExpirationPolicy] - Cleaning up sessions expiring at Tue Oct 25 09:47:00 GMT+08:00 2016
+2016-10-25 09:47:00,003 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:47:00,005 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:47:00,007 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:47:00,007 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+[org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,368 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,368 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,369 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,369 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,370 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,371 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,372 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,372 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,373 [http-bio-8080-exec-2] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,373 [http-bio-8080-exec-2] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
+2016-10-25 09:46:44,388 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,389 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - DispatcherServlet with name 'springmvc' processing GET request for [/web-test-dubbo/user/list]
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Looking up handler method for path /user/list
+2016-10-25 09:46:44,391 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Returning handler method [public java.lang.String com.nova.app.controller.UserController.list(org.springframework.ui.Model)]
+2016-10-25 09:46:44,392 [http-bio-8080-exec-8] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Returning cached instance of singleton bean 'userController'
+2016-10-25 09:46:44,393 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/web-test-dubbo/user/list] is: -1
+2016-10-25 09:46:44,528 [DubboClientHandler-192.168.10.180:20880-thread-1] DEBUG [com.alibaba.dubbo.remoting.transport.DecodeHandler] -  [DUBBO] Decode decodeable message com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcResult, dubbo version: 2.8.4, current host: 192.168.10.180
+2016-10-25 09:46:44,530 [http-bio-8080-exec-8] DEBUG [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Invoking afterPropertiesSet() on bean with name 'user/list'
+2016-10-25 09:46:44,530 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'user/list'; URL [/WEB-INF/view/user/list.jsp]] in DispatcherServlet with name 'springmvc'
+2016-10-25 09:46:44,531 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.view.JstlView] - Added model object 'users' of type [java.util.ArrayList] to request in view with name 'user/list'
+2016-10-25 09:46:44,531 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/view/user/list.jsp] in InternalResourceView 'user/list'
+2016-10-25 09:46:44,627 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,628 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,628 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,629 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,629 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,630 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:46:44,631 [http-bio-8080-exec-8] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:46:44,632 [http-bio-8080-exec-8] DEBUG [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
+2016-10-25 09:47:00,002 [pool-2-thread-1] DEBUG [org.springframework.session.data.redis.RedisSessionExpirationPolicy] - Cleaning up sessions expiring at Tue Oct 25 09:47:00 GMT+08:00 2016
+2016-10-25 09:47:00,003 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:47:00,005 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2016-10-25 09:47:00,007 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Opening RedisConnection
+2016-10-25 09:47:00,007 [pool-2-thread-1] DEBUG [org.springframework.data.redis.core.RedisConnectionUtils] - Closing Redis Connection
+2etr3q45r324153session.test=1
