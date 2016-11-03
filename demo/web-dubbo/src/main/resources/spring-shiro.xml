@@ -4,45 +4,36 @@
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.2.xsd"
     default-lazy-init="true">
 
-   <!--  <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="authenticator" ref="authenticator" />
-        <property name="realms">
-			<list>
-				<ref bean="systemAuthorizingRealm" />
-			</list>
-		</property>
-    </bean> -->
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
-        <property name="realm" ref="realm"/>  
-        <property name="cacheManager" ref="ehCacheShiro"></property>   
-    </bean> 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+               <value>classpath:redis.properties</value>
+                <!--要是有多个配置文件，只需在这里继续添加即可 -->
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+	    <property name="realm" ref="realm"/>  
+	    <!-- sessionManager -->
+	    <property name="sessionManager" ref="sessionManager" />
+	    <!-- cacheManager -->
+	    <property name="cacheManager" ref="cacheManager" />
+	    <!-- By default the servlet container sessions will be used.  Uncomment this line
+	         to use shiro's native sessions (see the JavaDoc for more): -->
+	    <!-- <property name="sessionMode" value="native"/> -->
+	</bean>
+
     <bean id="realm" class="com.nova.app.sys.security.realm.MyShiroRealm">  
       <property name="userService" ref="userService" />
     </bean>  
-    <bean id="ehCacheShiro" class="org.apache.shiro.cache.ehcache.EhCacheManager">  
-        <property name="cacheManagerConfigFile" value="classpath:cache/ehcache-shiro.xml"/>  
-    </bean> 
-    
-  <!--   <bean id="systemAuthorizingRealm" class="com.nova.app.sys.security.realm.SystemAuthorizingRealm">
-        <property name="credentialsMatcher" ref="credentialsMatcher" />
-        <property name="cachingEnabled" value="true" />
-        <property name="authenticationCachingEnabled" value="true" />
-        <property name="authenticationCacheName" value="authenticationCache" />
-        <property name="authorizationCachingEnabled" value="true" />
-        <property name="authorizationCacheName" value="authorizationCache" />
-    </bean> -->
 
     <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
 		<property name="authenticationStrategy">
 			<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy" />
 		</property>
 	</bean>
-	
-    <!--凭证匹配器 可以自定义。利用这个将密码进行解密验证 -->
-    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-        <property name="hashAlgorithmName" value="md5" />
-        <property name="hashIterations" value="2" />
-    </bean>
 
     <!-- 安全认证过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -52,7 +43,7 @@
         <!-- 登陆成功后要跳转的连接 如果首先访问受保护 URL 登录成功，则跳转到实际访问页面 -->
         <property name="successUrl" value="/user/list" />
         <!--可以在代码里面配置  -->
-        <property name="unauthorizedUrl" value="/unauthorizedUrl" />
+<!--        <property name="unauthorizedUrl" value="/unauthorizedUrl" />  --> 
 
         <property name="filters">
             <map>
@@ -79,6 +70,7 @@
     <bean name="shiroFilterChainDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
+            	/test/** = anon
                 /static/** = anon
                 /login = authc
                 /user/** = authc
@@ -94,17 +86,33 @@
     </bean>
 
     <!-- 会话ID生成器 可以自定义 -->
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
+<!--     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" /> -->
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-    <!-- AOP式方法级权限检查 启用Shiro注解（例如，@RequiresRoles，@RequiresPermissions 等等 -->
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
-        <property name="proxyTargetClass" value="true" />
-    </bean>
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager" />
-    </bean>
-     <!-- 支持Shiro对Controller的方法级AOP安全控制 end -->
+	<!-- shiro redisManager -->
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+	    <property name="host" value="${redis.host}"/>
+	    <property name="port" value="${redis.port}"/>
+	    <property name="expire" value="1800"/>
+	    <!-- optional properties:
+	    <property name="timeout" value="10000"/>
+	    <property name="password" value="123456"/>
+	    -->
+	</bean>
+
+	<bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+	    <property name="redisManager" ref="redisManager" />
+	</bean>
+	
+	<!-- sessionManager -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	    <property name="sessionDAO" ref="redisSessionDAO" />
+	</bean>
+	
+	<!-- cacheManager -->
+	<bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
+	    <property name="redisManager" ref="redisManager" />
+	</bean>
 </beans>

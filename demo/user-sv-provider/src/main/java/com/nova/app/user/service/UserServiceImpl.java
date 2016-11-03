@@ -1,7 +1,7 @@
 package com.nova.app.user.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -26,29 +26,32 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectUserById(userId);
 	}
 
-	@Override
 	public User get(String name) {
 		User user= userDao.get(name);
 		return user;
 	}
 
-	@Override
 	public void remove(String name) {
 		userDao.delete(name);
 	}
 
-	@Override
+	public static String getUUID() {
+	    return UUID.randomUUID().toString();  
+	}
+	 
 	public void add(User user) {
+		
+		user.setUserId(getUUID());
+		
 		userDao.insert(user);
+		
 		System.out.println("userId=" + user.getUserId());
 	}
 
-	@Override
 	public void update(User user) {
 		userDao.update(user);
 	}
 
-	@Override
 	public List<User> getAllUsers() {
 		List<User> users= userDao.getAllUsers();
 		return users;

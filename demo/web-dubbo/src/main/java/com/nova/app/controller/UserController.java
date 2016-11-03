@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.csource.common.NameValuePair;
-import org.csource.fastdfs.StorageClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nova.app.sys.dfs.DfsClient;
 import com.nova.app.user.domain.User;
 import com.nova.app.user.service.UserService;
 
@@ -30,13 +31,7 @@ public class UserController {
 	@Resource
 	private UserService userService;
 	
-//	@RequestMapping("/")  
-//    public ModelAndView getIndex(){    
-//		ModelAndView mav = new ModelAndView("index"); 
-//		User user = userService.selectUserById(2);
-//	    mav.addObject("user", user); 
-//        return mav;  
-//    } 
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	
     /**     
      * 添加新用户     
@@ -110,71 +105,28 @@ public class UserController {
 		try {
 			if(file.isEmpty()){
 			}else{
-				 path = upload2 (file);
-				/*String tempFileName = file.getOriginalFilename();
-				//fastDFS方式
-				ClassPathResource cpr = new ClassPathResource("fdfs_client.conf");
-				ClientGlobal.init(cpr.getClassLoader().getResource("fdfs_client.conf").getPath());
-				byte[] fileBuff = file.getBytes();
-			    String fileId = "";
-			    String fileExtName = tempFileName.substring(tempFileName.lastIndexOf("."));
-				
-			    //建立连接
-			    TrackerClient tracker = new TrackerClient();
-			    TrackerServer trackerServer = tracker.getConnection();
-			    StorageServer storageServer = null;
-			    StorageClient1 client = new StorageClient1(trackerServer, storageServer);
-			    
-			    //设置元信息
-			    NameValuePair[] metaList = new NameValuePair[3];
-			    metaList[0] = new NameValuePair("fileName", tempFileName);
-			    metaList[1] = new NameValuePair("fileExtName", fileExtName);
-			    metaList[2] = new NameValuePair("fileLength", String.valueOf(file.getSize()));
-			    
-			    //上传文件
-			    fileId = client.upload_file1(fileBuff, fileExtName, metaList);
-			    
-			    res.setHead_img(UserConstants.FILE_IMG_URL+fileId);
-			    
-				res.setRet_code(UserCodeEnum.SUCCESS.getCode());
-				res.setRet_msg(UserCodeEnum.SUCCESS.getDesc());*/
+				 path = saveFile (file);
 			}
 			
 		} catch (Exception e) {
-			 e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return path;
 	}
 	
-	public String upload2 (MultipartFile file) throws IOException{
-	    NameValuePair[] meta_list = new NameValuePair[1];  
-	    meta_list[0] = new NameValuePair("author", "mzl");  
-	   
+	public static String saveFile (MultipartFile file) throws IOException{
 	    byte[] fileBuff = file.getBytes();
 	    
-	    String group_name = null;  
-	    long startTime = System.currentTimeMillis();  
-	   
-	    StorageClient storageClient = FastClientUtils.getStorageClient();
-	    String[] results = null;
+	    String resultPath = null;
 		try {
-			results = storageClient.upload_file(fileBuff, "jpg", null);
+			resultPath = DfsClient.getInstance().uploadFile(fileBuff, "jpg");
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	    
-	    System.out.println("upload_file time used: " + (System.currentTimeMillis() - startTime) + " ms");  
-	    if (results == null){  
-	        System.err.println("upload file fail, error code: " + storageClient.getErrorCode());  
-	        return null;  
-	    }  
-	    group_name = results[0];  
-	    String remote_filename = results[1];  
-	    System.err.println("group_name: " + group_name + ", remote_filename: " + remote_filename);  
+			log.error(e.getMessage(), e);
+		} 
 	
-	    return remote_filename;
+	    return resultPath;
 	}  
  
 }
