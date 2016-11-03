@@ -9,7 +9,8 @@ import java.io.Serializable;
  * @time 2015.5.15
  */
 public class User implements Serializable{
-	private Integer userId;
+	
+	private String userId;
 	private String userName;
 	private String userPassword;
 	private String userEmail;
@@ -23,11 +24,11 @@ public class User implements Serializable{
 		this.photo = photo;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
