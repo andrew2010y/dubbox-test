@@ -161,5 +161,17 @@
 		    <artifactId>mybatis-redis</artifactId>
 		    <version>1.0.0-beta2</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.0.26</version>
+		</dependency>
+		<!-- Oracle驱动包 -->  
+      <!--   <dependency>  
+           <groupId>com.oracle</groupId>
+    <artifactId>ojdbc14</artifactId>
+    <version>10.2.0.4.0</version>
+        </dependency>   -->
+        
   </dependencies>
 </project>

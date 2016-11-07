@@ -2,9 +2,9 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
     <c:forEach items="${users}" var="user">     
         ${user.userName}----${user.userPassword}----${user.userEmail}      
-            <a href="<%=request.getContextPath()%>/user/${user.userName}">查看</a>     
-            <a href="<%=request.getContextPath()%>/user/${user.userName}/update">编辑</a>     
-            <a href="<%=request.getContextPath()%>/user/${user.userName}/delete">删除</a>     
+            <a href="<%=request.getContextPath()%>/user/view/${user.userName}">查看</a>     
+            <a href="<%=request.getContextPath()%>/user/update/${user.userName}">编辑</a>     
+            <a href="<%=request.getContextPath()%>/user/delete/${user.userName}">删除</a>    
         <br/>     
     </c:forEach>     
     <br/>     

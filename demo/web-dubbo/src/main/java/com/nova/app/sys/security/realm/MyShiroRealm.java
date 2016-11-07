@@ -1,6 +1,9 @@
 package com.nova.app.sys.security.realm;
 
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -8,7 +11,9 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.LoggerFactory;
@@ -23,9 +28,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 	
 	private static final String MESSAGE = "message";
 	
-	@Autowired
 	private UserService userService;
-	
+
 	public UserService getUserService() {
 		return userService;
 	}
@@ -36,25 +40,24 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-/*		String username = (String)principals.getPrimaryPrincipal();
-		
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		
-		if("ppt".equals(username)) {
-			info.addStringPermission("access");
-			return info;
-		}
-		if("jpa".equals(username)) {
-			info.addStringPermission("access");
-			info.addRole("admin");
-			return info;
-		}*/
-		return null;
+		if(principals == null){
+            throw new AuthorizationException();
+        }
+
+        String userName = (String) principals.getPrimaryPrincipal();
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+
+        Set permissionsSet = userService.getPermissions(userName);
+        info.setStringPermissions(permissionsSet);
+
+        log.info("[ACCOUNT："+userName+"][PERMISSIONS："+permissionsSet+"]");
+        return info;
 	}
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;  
+		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;  
         String username = token.getUsername();
         String passwrod = null;
         if(token.getPassword() != null) {
@@ -72,7 +75,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         User user = null;
         if(token.getUsername() != null && !"".equals(token.getUsername())) {
-        	user = userService.get(token.getUsername());
+        	user = userService.getUserAnthenticaition(username, passwrod);
         }
         try {
         	return new SimpleAuthenticationInfo(user.getUserName(),user.getUserPassword(),getName()); 

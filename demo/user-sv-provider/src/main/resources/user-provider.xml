@@ -6,7 +6,7 @@
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 提供方应用信息，用于计算依赖关系 -->
-    <dubbo:application name="hello-world-app3"  />
+    <dubbo:application name="hello-world-app-73"  />
 
      <!-- 使用zookeeper广播注册中心暴露服务地址 192.168.88.76-->
     <dubbo:registry protocol="zookeeper" address="192.168.88.73:2181" />
@@ -17,6 +17,7 @@
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.nova.app.user.service.UserService" ref="userServiceImpl"/>
 
+	<dubbo:service interface="com.nova.app.sys.service.SysService" ref="sysServiceImpl"/>
     <!-- 和本地bean一样实现服务 
     <bean id="userService" class="com.nova.app.user.UserServiceImpl" />
     -->

@@ -33,10 +33,43 @@
 		WHERE USER_NAME=#{userName}
 	</delete>
 
- 	<select id="get" resultMap="BaseResultMap" useCache="true">
+ 	<select id="get" resultMap="BaseResultMap" parameterType="string" useCache="true">
 		SELECT * FROM T_USER WHERE USER_NAME = #{userName}
 	</select>	
 	<select id="getAllUsers" resultMap="BaseResultMap">
 		SELECT * FROM T_USER 
 	</select>
+	<select id="getUserRolesSet" parameterType="string" resultType="string">
+        SELECT a.role_name
+          FROM t_role a
+          WHERE a.id  IN  (SELECT b.role_id
+                             FROM t_user_role b
+                             LEFT JOIN t_user c
+                             ON b.user_id=c.user_id
+                             WHERE c.user_name=#{username})
+    </select>
+
+    <select id="getRolePermissionsSet" parameterType="string" resultType="string">
+        SELECT a.permission_name
+          FROM t_permission a
+         WHERE a.id IN(
+                SELECT b.permission_id
+                  FROM t_role_permission b
+                  LEFT JOIN t_role c
+                  ON b.role_id = c.id
+                  WHERE c.role_name =#{role_name})
+    </select>
+    
+    <select id="getPermissions" parameterType="string" resultType="string">
+		SELECT functions.permission perm
+		  FROM functions, role_function, t_user_role, t_user
+		 WHERE t_user.user_name = #{user_name}
+		   AND t_user_role.user_id = t_user.user_id
+		   AND t_user_role.role_id = role_function.role_id
+		   AND role_function.function_id = functions.id
+    </select>
+    
+    <select id="getUserAnthenticaition" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_user WHERE user_name=#{username} AND  user_password=#{password}
+    </select>
 </mapper>

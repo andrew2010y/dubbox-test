@@ -10,14 +10,22 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nova.app.sys.cache.Cache;
+import com.nova.app.sys.security.realm.EndecryptUtils;
+import com.nova.app.user.domain.User;
 import com.nova.app.user.service.UserService;
 import com.nova.app.vo.TestRedis;
 
@@ -27,9 +35,7 @@ import com.nova.app.vo.TestRedis;
  */
 @Controller
 public class LoginController {
-	//public static Log log = (Log) Log.getLogger(LoginController.class);
-	//public static Logger logger1 = Logger.getLogger(LoginController.class);
-	
+	private static Logger log = Logger.getLogger(LoginController.class);
 	
 	@Resource
 	private UserService userService;
@@ -80,44 +86,50 @@ public class LoginController {
 	}
 	
 	
-    @RequestMapping(value="/login", method={RequestMethod.GET})      
-    public String login(HttpServletRequest request,Model model){  
-    	
-    	 Subject subject = SecurityUtils.getSubject();
-         if (subject.getPrincipal() != null) {
-        	 HttpSession session = request.getSession();
-        	 int sessionTest = 0;
-        	   InputStream inputStream = this.getClass().getClassLoader()
-        			   .getResourceAsStream("session-test/session-size.properties");
-        	    Properties p = new Properties();
-        	    try {
-        	    	 p.load(inputStream);
-        	    	 String s = (String) p.get("session.test");
-        	    	 sessionTest = Integer.parseInt(s);
-        	    } catch (IOException e1) {
-        	    e1.printStackTrace();
-        	    }
-        	 
-        	 if(sessionTest==0){
-        		 
-        	 }else if(sessionTest==1){
-        		 readFile(1,session);
-        	 }else if(sessionTest==2){
-        		 readFile(2,session);
-        	 }else if(sessionTest==3){
-        		 readFile(3,session);
-        	 }
-        	    
-        	 return "redirect:/user/list"; 
+    @RequestMapping(value="/login", method={RequestMethod.POST})      
+    public String login(User curUser,ModelMap model){  
+    	 double start = System.currentTimeMillis();
+    	 Subject user = SecurityUtils.getSubject();
+
+    	 /**
+    	  * 用户密码加密
+    	  */
+//         UsernamePasswordToken token = new UsernamePasswordToken(curUser.getUserName(),EndecryptUtils.md5Password(curUser.getUserPassword()));
+    	 UsernamePasswordToken token = new UsernamePasswordToken(curUser.getUserName(),curUser.getUserPassword());
+    	 token.setRememberMe(true);
+
+         try {
+             user.login(token);
+         }catch (UnknownAccountException e){
+             token.clear();
+             model.put("message", "用户不存在！");
+         }catch (IncorrectCredentialsException e){
+             token.clear();
+             model.put("message", "用户密码错误！");
+         }catch (AuthenticationException e) {
+        	 e.printStackTrace();
+             token.clear();
+             model.put("message", "出错了！");
+             return "login";
          }
+
+         model.put("username", curUser.getUserName());
          
-        return "login";      
+         //判断用户是否成功登录
+         if(user.isAuthenticated()){
+             log.warn("Running time of the method login:"+(System.currentTimeMillis()-start)+"ms");
+             return "user/list";
+         }else{
+        	 double end = System.currentTimeMillis();
+             log.warn("Running time of the method login:"+(System.currentTimeMillis()-start)+"ms");
+             return "login";
+         }
     }   
     
     /**
      * 只有登陆认证失败才会访问到该方法
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String fail(Model model) {
         return "login";
     }

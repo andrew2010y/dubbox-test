@@ -23,7 +23,7 @@ import com.nova.app.vo.TestRedis;
 @RequestMapping("/test/redis")
 public class RedisTestController {
 	@Resource
-	private Cache cacheTemplate;
+	private Cache cache;
 	
 	private static final Logger log = LoggerFactory.getLogger(RedisTestController.class);
 	
@@ -60,7 +60,7 @@ public class RedisTestController {
 	            	tempbytes = new byte[5024];
 	            	//testRedis.setTempbytes(tempbytes);
 	            	in.read(tempbytes);
-	            	cacheTemplate.set("testRedis1".getBytes(), tempbytes,0);  
+	            	cache.set("testRedis1".getBytes(), tempbytes,0);  
 	            }else if(flag==2){//几十k
 		            // 读入多个字节到字节数组中，byteread为一次读入的字节数
 		           /* while ((byteread = in.read(tempbytes)) != -1) {
@@ -69,7 +69,7 @@ public class RedisTestController {
 	            	tempbytes = new byte[150024];
 	            	in.read(tempbytes);
 	            	
-	            	cacheTemplate.set("testRedis2".getBytes(), tempbytes,0);  
+	            	cache.set("testRedis2".getBytes(), tempbytes,0);  
 	            }else if(flag==3){//几M
 		            	File file = new File(configFilePath);
 		                // 获得文件尺寸
@@ -94,7 +94,7 @@ public class RedisTestController {
 		                    throw new IOException("Could not completely read file "+file.getName());
 		                }
 		            
-		                cacheTemplate.set("testRedis3".getBytes(), bytes,0);  
+		                cache.set("testRedis3".getBytes(), bytes,0);  
 	            }
 	        } catch (Exception e1) {
 	            log.error(e1.getMessage(), e1);

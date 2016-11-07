@@ -5,5 +5,6 @@
 
 <mappers>
 		<mapper resource="com/nova/app/user/mapper/oracle/UserMapper.xml"/>
+		<mapper resource="com/nova/app/sys/mapper/oracle/SysMapper.xml"/>
 </mappers>   
 </configuration>

@@ -1,6 +1,9 @@
 package com.nova.app.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -27,8 +30,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public User get(String name) {
-		User user= userDao.get(name);
-		return user;
+		return userDao.get(name);
 	}
 
 	public void remove(String name) {
@@ -40,12 +42,8 @@ public class UserServiceImpl implements UserService{
 	}
 	 
 	public void add(User user) {
-		
 		user.setUserId(getUUID());
-		
 		userDao.insert(user);
-		
-		System.out.println("userId=" + user.getUserId());
 	}
 
 	public void update(User user) {
@@ -55,6 +53,25 @@ public class UserServiceImpl implements UserService{
 	public List<User> getAllUsers() {
 		List<User> users= userDao.getAllUsers();
 		return users;
+	}
+	
+	public Set getUserRolesSet(String name) {
+		return userDao.getUserRolesSet(name);
+	}
+
+	public Set getRolePermissionsSet(String roleName) {
+		return userDao.getRolePermissionsSet(roleName);
+	}
+
+	public User getUserAnthenticaition(String name, String password) {
+		Map map = new HashMap();
+		map.put("username",name);
+		map.put("password",password);
+		return userDao.getUserAnthenticaition(map);
+	}
+
+	public Set<String> getPermissions(String userName){
+		return userDao.getPermissions(userName);
 	}
 
 }

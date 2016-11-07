@@ -34,6 +34,12 @@
 			<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy" />
 		</property>
 	</bean>
+	
+    <!--凭证匹配器 可以自定义。利用这个将密码进行解密验证 -->
+<!--     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5" />
+        <property name="hashIterations" value="2" />
+    </bean> -->
 
     <!-- 安全认证过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -43,12 +49,12 @@
         <!-- 登陆成功后要跳转的连接 如果首先访问受保护 URL 登录成功，则跳转到实际访问页面 -->
         <property name="successUrl" value="/user/list" />
         <!--可以在代码里面配置  -->
-<!--        <property name="unauthorizedUrl" value="/unauthorizedUrl" />  --> 
+        <property name="unauthorizedUrl" value="/sys/perm-error" />
 
         <property name="filters">
             <map>
-                <!-- <entry key="cas" value-ref="casFilter"/> -->
                 <entry key="authc" value-ref="formAuthenticationFilter" />
+                <entry key="perms" value-ref="UrlPermissionsFilter" />
             </map>
         </property>
         <!-- shiro连接约束配置 -->
@@ -70,23 +76,29 @@
     <bean name="shiroFilterChainDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
+            	/ =anon
+            	/sys/perm-error=anon
             	/test/** = anon
                 /static/** = anon
                 /login = authc
-                /user/** = authc
-                /** = authc
+                /out = logout
+                /user/add* = authc,perms 
+                /user/delete* = authc,perms
+                /user/view/** = authc,perms
+                /** = authc,perms
             </value>
         </constructor-arg>
     </bean>
-
+	
+	<bean id="UrlPermissionsFilter" class="com.nova.app.sys.security.filter.UrlPermissionsFilter" >
+		<property name="sysService" ref="sysService" /> 
+	</bean>
+    
     <!-- 基于Form表单的身份验证过滤器-->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="username" />
         <property name="passwordParam" value="password" />
     </bean>
-
-    <!-- 会话ID生成器 可以自定义 -->
-<!--     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" /> -->
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 public class UserServiceImplTest extends TestCase {
 
 	@Test
-	public void testDb(){
+	public void testGet(){
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] {"application.xml"});
 		context.start();
